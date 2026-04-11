@@ -67,11 +67,12 @@ docs: [documentation ajoutée]
 fix:  [patch inévitable — expliquer pourquoi dans le corps du commit]
 ```
 
-Règle post-commit : après chaque commit qui modifie le comportement
-visible (`feat`, `fix`, `refactor`), demander à l'humain si la
-documentation doit être mise à jour. Préciser où (README, SPECS.md,
-CLAUDE.md) et quoi — liste bullet des éléments impactés :
-comportement modifié, nouvelle commande, nouveau mode, contrat changé.
+Règle pre-commit : avant chaque commit, vérifier si la documentation
+doit être mise à jour. Si oui, inclure les modifications doc dans le
+même commit que le code. Préciser où (README, SPECS.md, CLAUDE.md)
+et quoi — liste bullet des éléments impactés : comportement modifié,
+nouvelle commande, nouveau mode, contrat changé.
+Un commit = un état cohérent code + doc.
 
 ### Sécurité — vérification avant tout premier commit
 
