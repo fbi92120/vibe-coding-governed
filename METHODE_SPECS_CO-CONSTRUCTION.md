@@ -547,6 +547,7 @@ sans évaluer — a atteint son propre seuil de lucidité structurelle.
 7.  Le livrable est-il transmissible sans contexte ? (test de transmissibilité)
 8.  Quels modules ont un contrat fixe ? (tests de contrat avant implémentation)
 9.  Quels risques de sécurité n'ont pas été adressés ? (angle mort explicite)
+10. La version a-t-elle été validée sur échantillon avant d'être généralisée ?
 ```
 
 ### La structure de specs en 5 blocs + constitution
@@ -561,6 +562,12 @@ Bloc 5 — Stratégie de test         (contrat, smoke, checklist humaine)
 ```
 
 ### Les principes centraux
+
+> **Principe de validation sur échantillon**
+> Avant toute généralisation (batch, déploiement, migration),
+> valider sur un échantillon représentatif avec relecture humaine.
+> Si les biais cibles ont disparu sans nouveaux biais : généraliser.
+> Sinon : itérer sur les specs.
 
 > **Principe de non-raccourci** : si une tentation de produire apparaît
 > avant que la pensée soit complète, c'est un signal que la co-construction
