@@ -80,3 +80,12 @@ Un commit = un état cohérent code + doc.
 - [ ] `.gitignore` contient `.env`, `config.yml`, dossiers de sortie
 - [ ] Aucune clé ou valeur réelle dans les fichiers `.example`
 - [ ] Aucun chemin personnel hardcodé dans le code
+
+## Méthode de référence
+
+Au démarrage de chaque session, lire :
+~/Projects/vibe-coding-governed/METHODE_SPECS_CO-CONSTRUCTION.md
+
+Ce fichier contient les principes de gouvernance applicables
+à tous les projets. Il est la source de vérité unique —
+ne pas dupliquer son contenu dans d'autres fichiers.
