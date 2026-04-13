@@ -583,6 +583,15 @@ Bloc 5 — Stratégie de test         (contrat, smoke, checklist humaine)
 > et remonte les divergences dans Claude.ai avant de les accepter
 > dans le code.
 
+> **Anti-pattern : implémentation directe d'un gap**
+> Quand Claude Code détecte un gap en production (feature manquante,
+> comportement non spécifié, incohérence), il ne l'implémente pas
+> directement. Il le signale et attend.
+> Le flux correct : gap détecté → remontée Claude.ai → specs mises
+> à jour → validation humaine → Claude Code implémente.
+> Un gap implémenté sans mise à jour des specs est une dette de spec
+> silencieuse.
+
 ---
 
 ## Ce que cette méthode démontre comme expertise
