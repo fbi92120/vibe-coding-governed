@@ -6,17 +6,17 @@ Vibe coding is powerful. Ungoverned vibe coding is a lottery. This repository do
 
 ## The method
 
-**METHODE_SPECS_CO-CONSTRUCTION.md** defines a 9-step process for co-constructing specifications with an LLM before writing any code:
+**METHODE_SPECS_CO-CONSTRUCTION.md** (v7.1) defines a 9-step process for co-constructing specifications with an LLM before writing any code:
 
 1. Define the real problem (not the imagined solution)
 2. Start from actual usage, not the deliverable
 3. Test risky hypotheses before specifying
-4. Make decisions one at a time, not in bulk
+4. Force every decision to be named
 5. Write the constitution (non-negotiable rules) before code
-6. Define the implementation sequence
-7. Freeze specs before the first prompt
-8. Execute: one prompt = one module = one test
-9. Capitalize: write the experience report
+6. Ask Claude.ai to review the specs before implementing
+7. Distinguish thinking from producing
+8. Define tests before implementing fixed-contract modules
+9. Address security as a structural concern, not an afterthought
 
 The key principle: **specs eliminate ambiguity before the code encounters it.** The LLM co-constructs the specs (Claude.ai), then a different LLM session implements them (Claude Code). The human orchestrates, validates, and decides at every step.
 
@@ -26,6 +26,10 @@ The key principle: **specs eliminate ambiguity before the code encounters it.** 
 |---|---|
 | **CLAUDE.global.md** | Global instructions for Claude Code across all projects |
 | **CLAUDE.projects.md** | Shared conventions for all projects in ~/Projects/ |
+| **BACKLOG.global.md** | Cross-project ideas, portfolio arbitration, external dependencies |
+| **BACKLOG.projects.md** | Inter-project dependencies and cross-project prioritization |
+
+> **Note on versioning**: Section 8 of METHODE v6 ("What is systematically transferable") was removed in v7 — its content was absorbed into the Quick Start (section 2) and the 9 steps (section 6). The document now has 8 sections instead of 9.
 
 ## Case studies
 
@@ -47,7 +51,7 @@ Stateful knowledge base maintained by an LLM from source files. Inspired by [Kar
 
 - **Architecture**: 7 modules, passive orchestrator, 3 ingestion modes, Obsidian as reading interface
 - **Constitution**: 15 rules (stateful systems need integrity rules that stateless systems don't)
-- **Result**: 12 prompts, 3533 lines of Python, 23/23 tests, 88 wiki pages produced
+- **Result**: 12 prompts, 3533 lines of Python, 20/20 tests, 88 wiki pages produced
 - **Specs/code ratio**: 1:2.7 (1286 lines of specs for 3533 lines of Python)
 - **Time**: ~6h30 specs + ~3h50 coding = ~10h20 total
 
