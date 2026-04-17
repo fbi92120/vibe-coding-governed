@@ -1,59 +1,91 @@
-# BACKLOG — Projects
-Version : 1.1
-Date : 2026-04-15
-
-*Dépendances inter-projets et priorisation cross-projets.
-Source de vérité pour l'arbitrage portfolio.*
-
----
-
-## Dépendances inter-projets
-
-### DEP-01 — YT Extractor V1.1 → Wiki LLM corrections
-**Projets** : yt-extractor → wiki-llm
-**Description** : les corrections WL-02 (reader.py) et WL-03 (template source)
-dépendent du format de fiche YT Extractor. Si V1.1 modifie le format des
-sections (chapitrage inféré, formulations notables, etc.), les corrections
-wiki-llm doivent s'adapter.
-**Séquençage** : YT Extractor V1.1 d'abord, puis wiki-llm WL-02/WL-03
-**Source** : session BACKLOG wiki-llm — 2026-04-15
-**Statut** : actif
-
-### DEP-02 — Export Evernote → Wiki LLM Workflow B
-**Projets** : export-evernote → wiki-llm
-**Description** : le Workflow B (WL-20) ne peut pas être spécifié tant que
-la migration Evernote n'est pas terminée — la structure des notes exportées
-détermine le reader et le template source du Workflow B.
-**Séquençage** : Export Evernote terminé, puis co-construction WL-20
-**Source** : decisions.md V2-1
-**Statut** : bloqué (migration non commencée)
-
-### DEP-03 — Wiki LLM Phase 2 → LLMProvider partagé
-**Projets** : wiki-llm + yt-extractor
-**Description** : les deux projets utilisent le même pattern `LLMProvider`
-avec les mêmes providers (Ollama, Gemini, Haiku). Toute évolution du
-pattern dans un projet devrait être propagée à l'autre. Pas de librairie
-partagée au MVP — duplication acceptée, synchronisation manuelle.
-**Source** : session BACKLOG wiki-llm — 2026-04-15
-**Statut** : surveillé
+# CLAUDE.md — Projects
+# Emplacement cible : ~/Projects/CLAUDE.md
+# Portée : tous les projets dans le dossier ~/Projects/
+#
+# INSTALLATION :
+#   Option 1 : lancer ./setup.sh à la racine du repo (recommandé)
+#   Option 2 : copier manuellement
+#              cp CLAUDE.projects.md ~/Projects/CLAUDE.md
+#
+# Ce fichier complète le CLAUDE.md global (~/.claude/CLAUDE.md).
+# Il définit les conventions communes à tous les projets.
 
 ---
 
-## Priorisation cross-projets
+## Conventions communes à tous les projets
 
-### Séquençage validé (avril 2026)
+### Langues
+- Code : anglais
+- Commentaires dans le code : français
+- Docs publiques (README.md, CONTRIBUTING.md, LICENSE) : anglais
+  → point d'entrée d'un visiteur GitHub, convention open-source standard
+- Traductions du README : README.[lang].md (ex: README.fr.md)
+- Docs internes (SPECS.md, PLAN.md, CLAUDE.md, méthodologie) : langue de l'équipe
+  → français pour les projets de François par défaut
+- Livrables générés : français par défaut, configurable
+
+### Structure systématique de tout nouveau projet
 
 ```
-1. Wiki LLM — corrections WL-01 à WL-05
-2. YT Extractor V1.1 (extraction/inference separation)
-3. Wiki LLM — Phase 2 (synthèse LLM, WL-10 à WL-13)
+[projet]/
+├── README.md              # EN
+├── README.fr.md           # FR
+├── SPECS.md               # spécifications complètes
+├── CLAUDE.md              # instructions projet
+├── CLAUDE.global.md       # à placer dans ~/.claude/CLAUDE.md
+├── CLAUDE.projects.md     # à placer dans ~/Projects/CLAUDE.md
+├── setup.sh               # script d'installation
+├── config.yml.example     # template configuration utilisateur
+├── .env.example           # template variables d'environnement
+├── .gitignore
+├── requirements.txt
+└── tests/
+    ├── test_contract.py   # tests de contrat — avant les modules
+    └── test_smoke.py      # test d'intégration — en dernier
 ```
 
-**Justification** : WL-01 (bug R11) et WL-04 (questions) n'ont pas de
-dépendance YT Extractor — ils peuvent être faits maintenant. WL-02 et
-WL-03 dépendent du format V1.1 (DEP-01), mais le format actuel est déjà
-diagnostiqué comme compatible (DIAGNOSTIC_2026-04-11). Le risque de
-changement cassant en V1.1 est faible.
+### Environnement Python (tout projet Python)
 
-**Alternative** : si V1.1 change le format des fiches, revenir sur
-WL-02/WL-03 après V1.1. Le coût de rework est faible (un module, un test).
+- Chaque projet a son propre venv à la racine : `.venv/`
+- `.venv/` est dans `.gitignore`
+- Version Python cible : la plus récente stable supportée par les deps
+  (aujourd'hui 3.12, via Homebrew : `brew install python@3.12`)
+- `setup.sh` crée le venv et installe les deps dedans (PEP 668-compliant)
+- Les alias terminal pointent vers `.venv/bin/python` en chemin absolu,
+  jamais vers `python3` système
+- `requirements.txt` inclut les deps runtime ET test (pas de split dev/prod
+  tant que le projet n'en a pas besoin)
+
+### Git — stratégie de commit
+
+Commiter par bloc fonctionnel, pas par ligne. Format :
+
+```
+feat: [ce qui a été implémenté]
+test: [tests ajoutés]
+docs: [documentation ajoutée]
+fix:  [patch inévitable — expliquer pourquoi dans le corps du commit]
+```
+
+Règle pre-commit : avant chaque commit, vérifier si la documentation
+doit être mise à jour. Si oui, inclure les modifications doc dans le
+même commit que le code. Préciser où (README, SPECS.md, CLAUDE.md)
+et quoi — liste bullet des éléments impactés : comportement modifié,
+nouvelle commande, nouveau mode, contrat changé.
+Un commit = un état cohérent code + doc.
+
+### Sécurité — vérification avant tout premier commit
+
+- [ ] `.env` absent du staging (`git status` ne doit pas le montrer)
+- [ ] `.gitignore` contient `.env`, `config.yml`, dossiers de sortie
+- [ ] Aucune clé ou valeur réelle dans les fichiers `.example`
+- [ ] Aucun chemin personnel hardcodé dans le code
+
+## Méthode de référence
+
+Au démarrage de chaque session, lire :
+~/Projects/vibe-coding-governed/METHODE_SPECS_CO-CONSTRUCTION.md
+
+Ce fichier contient les principes de gouvernance applicables
+à tous les projets. Il est la source de vérité unique —
+ne pas dupliquer son contenu dans d'autres fichiers.
