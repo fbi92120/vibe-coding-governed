@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.1
-Date : 2026-04-18 17:46
+Version : 1.2
+Date : 2026-04-18 18:38
 
 ---
 
@@ -21,6 +21,33 @@ Date : 2026-04-18 17:46
 ## Évolutions planifiées
 
 *Aucune pour l'instant.*
+
+---
+
+## Gaps de méthode
+
+### Dette tests unitaires — modules en production non testés
+**Projets** : yt-extractor (confirmé) + wiki-llm (à vérifier)
+**Date** : 2026-04-18 18:38
+**Description** : plusieurs modules en production sans tests unitaires
+  (transcript.py, metadata.py, generator.py, validator.py, writer.py, llm/).
+  Seul le smoke test couvre l'intégration. Pattern transverse à surveiller
+  sur tout nouveau projet.
+**Action** : session dédiée par projet — prioriser les modules à contrat
+  fixe (validator, writer)
+**Source** : BACKLOG yt-knowledge-extractor — 2026-04-18
+**Statut** : ouvert
+
+### Règles batch — convention transverse à formaliser
+**Projets** : yt-extractor V2 + tout futur projet batch
+**Date** : 2026-04-18 18:38
+**Description** : règles batch (dry-run, archivage, log structuré, limite,
+  idempotence, rapport de fin) définies empiriquement dans yt-extractor.
+  Non formalisées dans la méthode — risque de réinvention à chaque projet.
+**Action** : extraire les règles batch de yt-extractor V2 et les intégrer
+  comme annexe dans METHODE_SPECS_CO-CONSTRUCTION
+**Source** : BACKLOG vibe-coding-governed — 2026-04-15
+**Statut** : ouvert
 
 ---
 

@@ -1,6 +1,6 @@
 # BACKLOG — Projects
-Version : 1.1
-Date : 2026-04-18 17:46
+Version : 1.2
+Date : 2026-04-18 18:38
 
 *Dépendances inter-projets et priorisation cross-projets.
 Source de vérité pour l'arbitrage portfolio.*
@@ -17,7 +17,8 @@ sections (chapitrage inféré, formulations notables, etc.), les corrections
 wiki-llm doivent s'adapter.
 **Séquençage** : YT Extractor V1.1 d'abord, puis wiki-llm WL-02/WL-03
 **Source** : session BACKLOG wiki-llm — 2026-04-15
-**Statut** : actif
+**Statut** : résolu — 2026-04-18 18:38 — format de fiche stable en V1.7,
+  aucune modification structurelle. WL-02/WL-03 peuvent avancer sans rework.
 
 ### DEP-02 — Export Evernote → Wiki LLM Workflow B
 **Projets** : export-evernote → wiki-llm
@@ -27,6 +28,19 @@ détermine le reader et le template source du Workflow B.
 **Séquençage** : Export Evernote terminé, puis co-construction WL-20
 **Source** : decisions.md V2-1
 **Statut** : bloqué (migration non commencée)
+
+### DEP-04 — Principe orchestrateur passif (yt-extractor + wiki-llm)
+**Projets** : yt-extractor + wiki-llm
+**Date** : 2026-04-18 18:38
+**Description** : les deux projets appliquent le principe "aucune logique métier
+  dans l'orchestrateur" (extract.py / main.py). Violation détectée dans
+  yt-extractor : _extract_model_from_fiche() placée dans extract.py au lieu
+  de src/writer.py. Le pattern doit être appliqué de façon cohérente dans
+  les deux projets.
+**Séquençage** : corriger dans yt-extractor (déjà noté BACKLOG),
+  vérifier dans wiki-llm
+**Source** : BACKLOG yt-knowledge-extractor — 2026-04-18
+**Statut** : ouvert
 
 ### DEP-03 — Wiki LLM Phase 2 → LLMProvider partagé
 **Projets** : wiki-llm + yt-extractor
