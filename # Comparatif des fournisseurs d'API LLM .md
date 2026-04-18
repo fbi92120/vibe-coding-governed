@@ -1,4 +1,6 @@
 # Comparatif des fournisseurs d'API LLM — Coûts, quotas et remises
+**Version** : 1.0  
+**Date** : 2026-04-14 09:51
 
 ## Vue d'ensemble
 

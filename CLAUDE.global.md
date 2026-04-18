@@ -1,4 +1,5 @@
 # CLAUDE.md — Global
+# Version : 2.0 — Date : 2026-04-11 12:00
 # Emplacement cible : ~/.claude/CLAUDE.md
 # Portée : tous les projets Claude Code sur cette machine
 #

@@ -1,6 +1,6 @@
 # BACKLOG — Projects
 Version : 1.1
-Date : 2026-04-15
+Date : 2026-04-18 17:46
 
 *Dépendances inter-projets et priorisation cross-projets.
 Source de vérité pour l'arbitrage portfolio.*

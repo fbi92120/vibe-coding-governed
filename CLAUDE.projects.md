@@ -81,6 +81,22 @@ Un commit = un état cohérent code + doc.
 - [ ] Aucune clé ou valeur réelle dans les fichiers `.example`
 - [ ] Aucun chemin personnel hardcodé dans le code
 
+## BACKLOG.md — règle de format
+
+Toute nouvelle entrée dans BACKLOG.md doit inclure un champ **Date**
+avec la date et l'heure au format YYYY-MM-DD HH:MM.
+Exemple : **Date** : 2026-04-18 10:30
+
+Ajouter ce champ en deuxième ligne, juste après le titre de l'entrée.
+
+```markdown
+### [TITRE DE L'ENTRÉE]
+**Date** : 2026-04-18 10:30
+**Source** : ...
+```
+
+Entrées sans date connue : **Date** : inconnue
+
 ## Méthode de référence
 
 Au démarrage de chaque session, lire :

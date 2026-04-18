@@ -1,6 +1,7 @@
 # Analyse tarifaire — Providers LLM
 **Projet** : Wiki LLM
-**Date** : 2026-04-13 (mise à jour)  
+**Version** : 1.0  
+**Date** : 2026-04-13 11:45  
 **Contexte** : choix du provider LLM pour le module synthesizer.py (Wiki LLM) + retours production YT Extractor
 
 ---
