@@ -1,4 +1,6 @@
 # CLAUDE.md — Projects
+# Version : 1.1
+# Date : 2026-05-10 00:01
 # Emplacement cible : ~/Projects/CLAUDE.md
 # Portée : tous les projets dans le dossier ~/Projects/
 #
@@ -74,28 +76,34 @@ et quoi — liste bullet des éléments impactés : comportement modifié,
 nouvelle commande, nouveau mode, contrat changé.
 Un commit = un état cohérent code + doc.
 
+### Convention d'entête sur les .md structurants
+
+Tout fichier .md structurant produit ou modifié pour un projet
+porte une entête à 2 champs, dans cet ordre, en texte simple
+(pas de gras markdown), placée juste après le titre :
+
+```
+# Titre du fichier
+Version : X.Y
+Date : YYYY-MM-DD HH:MM
+```
+
+Cette entête sert à détecter une divergence entre la version locale
+et la version uploadée dans le projet Claude.ai.
+
+Règles d'application :
+- À chaque modification : incrémenter version et date+heure
+- Ne pas recopier passivement la structure d'un fichier source —
+  vérifier la convention avant de produire
+- README.md et les CLAUDE.md ont leurs propres conventions
+  (entête en commentaires `#` pour les CLAUDE.md, pas d'entête pour README)
+
 ### Sécurité — vérification avant tout premier commit
 
 - [ ] `.env` absent du staging (`git status` ne doit pas le montrer)
 - [ ] `.gitignore` contient `.env`, `config.yml`, dossiers de sortie
 - [ ] Aucune clé ou valeur réelle dans les fichiers `.example`
 - [ ] Aucun chemin personnel hardcodé dans le code
-
-## BACKLOG.md — règle de format
-
-Toute nouvelle entrée dans BACKLOG.md doit inclure un champ **Date**
-avec la date et l'heure au format YYYY-MM-DD HH:MM.
-Exemple : **Date** : 2026-04-18 10:30
-
-Ajouter ce champ en deuxième ligne, juste après le titre de l'entrée.
-
-```markdown
-### [TITRE DE L'ENTRÉE]
-**Date** : 2026-04-18 10:30
-**Source** : ...
-```
-
-Entrées sans date connue : **Date** : inconnue
 
 ## Méthode de référence
 

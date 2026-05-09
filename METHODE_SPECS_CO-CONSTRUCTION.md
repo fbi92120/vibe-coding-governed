@@ -1,10 +1,8 @@
 # Méthode de co-construction des spécifications
 ## Vibe-coding gouverné : du code qui tient, sans patches
 
-**Auteur** : François Biller
-**Date** : 2026-04-15
-**Version** : 7.1
-**Repo** : https://github.com/fbi92120/vibe-coding-governed
+Version : 7.4
+Date : 2026-05-10 00:01
 
 ---
 
@@ -265,17 +263,11 @@ Projet Claude.ai
 
 SPECS.md, BACKLOG.md et CLAUDE.md existent dans deux endroits : le repo local et les documents du projet Claude.ai. Une divergence entre les deux versions est silencieuse — Claude.ai travaille sur une version périmée sans le signaler.
 
-**Règle** : chaque fichier .md clé porte une version et une date en entête.
-
-```
-# SPECS.md
-Version : 1.3
-Date : 2026-04-15
-```
+**Règle** : chaque fichier `.md` structurant porte une entête Version + Date+heure. Le format complet est en Annexe D.
 
 Claude Code incrémente la version à chaque modification. Claude.ai vérifie la version au démarrage de session et signale si le document joint semble périmé.
 
-**Règle opérationnelle** : après toute modification d'un .md en local via Claude Code, re-uploader la version mise à jour dans le projet Claude.ai avant la prochaine session de co-construction. Après toute modification d'un .md dans Claude.ai, télécharger la nouvelle version et la déposer dans le repo local — elle remplace l'ancienne. Supprimer l'ancienne version dans le projet Claude.ai avant d'uploader la nouvelle — deux versions du même fichier créent une ambiguïté que Claude.ai ne signale pas.
+**Règle opérationnelle** : après toute modification d'un `.md` en local via Claude Code, re-uploader la version mise à jour dans le projet Claude.ai avant la prochaine session de co-construction. Après toute modification d'un `.md` dans Claude.ai, télécharger la nouvelle version et la déposer dans le repo local — elle remplace l'ancienne. Supprimer l'ancienne version dans le projet Claude.ai avant d'uploader la nouvelle — deux versions du même fichier créent une ambiguïté que Claude.ai ne signale pas.
 
 ---
 
@@ -701,7 +693,7 @@ Quand le plugin émet un warning pendant une session Claude Code :
 ```markdown
 # BACKLOG — [nom du projet]
 Version : 1.0
-Date : [date]
+Date : YYYY-MM-DD HH:MM
 
 ## Idées brutes
 *Une phrase. Pas encore qualifiées. L'arbitrage se fait en revue périodique.*
@@ -849,12 +841,23 @@ Tu signales quand SPECS.md devient illisible ou contradictoire.
 Tu proposes une réécriture uniquement quand la cohérence est
 compromise — pas à chaque évolution.
 
-## Gestion des versions
+## Convention d'entête sur les .md structurants
 
-Tu indiques la version et la date en entête de tout .md
-que tu produis ou modifies. Au démarrage de session, tu
-vérifies la version des documents joints et tu signales
-si une version plus récente semble exister.
+Tout livrable .md co-construit dans Claude.ai et destiné à un repo
+porte une entête à 2 champs, dans cet ordre, en texte simple
+(pas de gras markdown) :
+
+Version : X.Y
+Date : YYYY-MM-DD HH:MM
+
+Cette entête sert à détecter une divergence entre la version locale
+et la version uploadée dans le projet Claude.ai.
+
+Règles d'application :
+- À chaque modification : incrémenter version et date+heure
+- Ne pas recopier passivement la structure d'un fichier source —
+  vérifier la convention avant de produire
+- README.md et les CLAUDE.md ont leurs propres conventions
 
 ## Reprise de projet
 
