@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.4
-Date : 2026-07-09 10:30
+Version : 1.5
+Date : 2026-07-09 17:31
 
 ---
 
@@ -172,6 +172,40 @@ Date : 2026-07-09 10:30
   chantiers méta en parallèle).
 **Source** : LEÇONS-METHODE-ENEX2OBSIDIAN.md V1.0 + conversation
   Claude.ai enex2obsidian 2026-07-09
+**Statut** : ouvert
+
+### Distinguer 3 natures de projet dans l'Annexe D — production / lab / hybride
+**Projets** : vibe-coding-governed (méthode)
+**Date** : 2026-07-09
+**Description** : L'Annexe D de METHODE V7.4 est taillée uniquement
+  pour les projets de production d'outil (11 questions, SPECS.md,
+  BACKLOG, tests de contrat, séquence prompt-module-test). Elle ne
+  distingue pas les autres natures de projet, notamment les labs
+  d'apprentissage (livrable = compétence acquise, pas outil livrable)
+  et les projets hybrides (lab qui produit progressivement des briques
+  réutilisables). Appliquée à un lab, l'Annexe D produit de la friction
+  inutile : chaque manip passerait par un cycle 11 questions → SPECS.md,
+  soit contournement du prompt, soit ralentissement de l'apprentissage.
+**Cas déclencheur** : projet llm-lab (2026-07-09) — session Cockpit
+  a signalé le mismatch entre l'Annexe D standard et la nature hybride
+  de llm-lab. Un draft d'instructions hybrides a été produit pour
+  llm-lab, à capitaliser dans la V7.5 de METHODE.
+**Action** : dans la V7.5, restructurer l'Annexe D en 3 variantes ou
+  en une seule Annexe D modulaire avec sections optionnelles selon
+  la nature du projet :
+  1. Projet de production d'outil (Annexe D actuelle)
+  2. Projet de lab d'apprentissage (EXPERIMENTS.md comme livrable
+     central, pas de SPECS.md, signaux de bascule vers mode spec)
+  3. Projet hybride (mode lab par défaut, bascule vers mode spec
+     quand une brique se stabilise)
+  Documenter les signaux de bascule (🔧 STABILISATION DÉTECTÉE,
+  🏗️ PORTÉE ÉLARGIE, 📤 CAPITALISATION EXTERNE).
+  Documenter la nuance "DÉCISION MANQUANTE" (mode lab) vs "SPEC
+  MANQUANTE" (mode spec).
+**Référence** : draft d'instructions hybrides produit dans le projet
+  Claude.ai llm-lab au 2026-07-09.
+**Source** : session Cockpit + session préparatoire llm-lab (archive
+  YT Extractor) 2026-07-09
 **Statut** : ouvert
 
 ---
