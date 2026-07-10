@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.6
-Date : 2026-07-10 11:18
+Version : 1.7
+Date : 2026-07-10 12:06
 
 ---
 
@@ -258,6 +258,32 @@ Date : 2026-07-10 11:18
   toutes explicitement."
 **Source** : session llm-lab — 2026-07-09 — premier bench Qwen 3 8B
   sur cas YT Extractor
+**Statut** : ouvert
+
+### Fenêtre de contexte annoncée d'un modèle ≠ fenêtre utilisable
+    par machine
+**Projets** : llm-lab + tout projet utilisant un modèle LLM local
+**Date** : 2026-07-10
+**Description** : la fenêtre native annoncée par un modèle (ex. Qwen 3 8B
+  annonce 128K, `ollama show` affiche 40 960 tokens) ne correspond pas
+  à la fenêtre utilisable sur une machine donnée. Sur Mac M5 16 Go RAM,
+  la fenêtre utile pratique de Qwen 3 8B Q4_K_M est plafonnée à ~16K
+  par la contrainte RAM (le KV cache d'un num_ctx élevé consomme
+  beaucoup à côté des 5,2 Go du modèle). Passer à 32K provoquerait
+  probablement un swap et effondrerait la latence.
+  Ce plafond n'est pas documenté par le provider et ne fait l'objet
+  d'aucun warning : le modèle accepte silencieusement n'importe quel
+  num_ctx, la limite se manifeste par une dégradation runtime.
+  Corollaire du gap "Défauts silencieux des providers LLM" mais distinct :
+  ici la contrainte est hardware, pas paramétrique.
+**Action** : intégrer dans METHODE_SPECS_CO-CONSTRUCTION.md, en corollaire
+  de la règle sur les défauts silencieux : pour tout modèle local, la
+  fenêtre pratique par machine doit être mesurée expérimentalement
+  (num_ctx maximal sans dégradation runtime), documentée, et distinguée
+  de la fenêtre annoncée par le modèle. La fenêtre annoncée ne suffit
+  pas au dimensionnement d'un cas d'usage.
+**Source** : session llm-lab — 2026-07-10 — analyse post-run Qwen 3 8B
+  Q4 sur Mac M5 16 Go
 **Statut** : ouvert
 
 ---
