@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.5
-Date : 2026-07-09 17:31
+Version : 1.6
+Date : 2026-07-10 11:18
 
 ---
 
@@ -206,6 +206,58 @@ Date : 2026-07-09 17:31
   Claude.ai llm-lab au 2026-07-09.
 **Source** : session Cockpit + session préparatoire llm-lab (archive
   YT Extractor) 2026-07-09
+**Statut** : ouvert
+
+### Récupération de contexte d'un projet Claude.ai vers un autre — pattern absent
+**Projets** : vibe-coding-governed (méthode) + tout projet dépendant
+  d'un autre projet Claude.ai
+**Date** : 2026-07-09
+**Description** : quand un projet aval (ex. llm-lab) a besoin
+  d'informations d'un projet amont (ex. yt-knowledge-extractor)
+  — prompt système, exemple d'output, décision de spec —
+  il n'existe pas de mécanisme pour que Claude.ai du projet aval
+  accède au contexte du projet amont. Les projets Claude.ai sont
+  cloisonnés. Le seul canal actuel est l'humain qui fait du
+  copier-coller manuel. Observé sur llm-lab qui a besoin du prompt
+  système de yt-knowledge-extractor pour tester la latence Ollama
+  sur un vrai transcript.
+**Action** : documenter le pattern dans METHODE_SPECS_CO-CONSTRUCTION.md
+  (probablement section 5 ou 7) : quand un projet aval dépend
+  de matière d'un projet amont, identifier au démarrage les
+  artefacts à rapatrier (prompt système, exemples, extraits SPECS)
+  et les joindre au projet aval comme documents figés. Ne pas
+  tenter de "demander à l'autre projet" en cours de session.
+**Source** : session llm-lab — 2026-07-09
+**Statut** : ouvert
+
+### Défauts silencieux des providers LLM — risque méthode transverse
+**Projets** : llm-lab + tout projet utilisant un provider LLM
+**Date** : 2026-07-09
+**Description** : les providers LLM peuvent avoir des valeurs par défaut
+  qui altèrent silencieusement le comportement observé, sans erreur ni
+  avertissement. Observé sur Ollama v0.31.1 : le paramètre num_ctx par
+  défaut est ~2 048 tokens, indépendamment de la capacité réelle du
+  modèle (Qwen 3 8B affiche pourtant 40 960 tokens dans `ollama show`).
+  Un prompt de 16 000 tokens envoyé sans num_ctx explicite est tronqué
+  à ~2 050 tokens, la requête retourne done_reason "stop" et une
+  sortie apparemment cohérente — mais totalement déconnectée du prompt
+  réel. Aucun signal d'erreur.
+  Ce n'est probablement pas propre à Ollama : tout provider peut avoir
+  des défauts silencieux similaires (max_tokens, temperature, top_p,
+  timeout, contexte glissant). Un benchmark ou une comparaison
+  cross-modèles peut être invalidé sans que l'expérimentateur le
+  détecte.
+**Action** : intégrer dans METHODE_SPECS_CO-CONSTRUCTION.md (étape 4
+  "Forcer chaque décision à être nommée" ou nouvelle sous-section
+  dédiée aux providers LLM) le principe suivant : tout paramètre
+  critique d'un provider (num_ctx, max_tokens, temperature, etc.)
+  doit être passé explicitement, jamais laissé au défaut. La règle
+  s'applique aussi bien à un test qu'à un module de production.
+  Corollaire dans la constitution de tout projet LLM : "ne jamais
+  compter sur les valeurs par défaut d'un provider — les nommer
+  toutes explicitement."
+**Source** : session llm-lab — 2026-07-09 — premier bench Qwen 3 8B
+  sur cas YT Extractor
 **Statut** : ouvert
 
 ---
