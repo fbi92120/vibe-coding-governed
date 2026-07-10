@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.7
-Date : 2026-07-10 12:06
+Version : 1.9
+Date : 2026-07-10 20:42
 
 ---
 
@@ -86,22 +86,70 @@ Date : 2026-07-10 12:06
 **Source** : session vibe-coding-governed — 2026-05-10
 **Statut** : ouvert
 
-### Enrichir les instructions du projet avec les apprentissages de session
+### Enrichissement continu des documents de contexte outils (Instructions Claude.ai + CLAUDE.md projet)
 **Projets** : vibe-coding-governed (méthode)
-**Date** : 2026-05-10 19:15
-**Description** : bonne pratique observée pendant la bascule
-  vibe-coding-governed → press-knowledge-extractor. Les instructions du
-  nouveau projet ont été enrichies de 3 sections au-delà de l'Annexe D
-  standard : (1) périmètre projet, (2) état du projet à l'ouverture avec
-  les décisions de l'étape 1, (3) "Vigilance spécifique à ce projet"
-  avec les patterns observés en cours de session.
-  Cette pratique n'est pas documentée dans METHODE.md — elle devrait l'être
-  car elle évite de perdre la mémoire opérationnelle entre les sessions
-  successives d'un même projet.
-**Action** : dans la section 5 (Configurer le projet Claude.ai), ajouter
-  une sous-section "Enrichir les instructions au fur et à mesure" avec
-  la liste des sections optionnelles à ajouter par-dessus l'Annexe D.
-**Source** : session vibe-coding-governed — 2026-05-10
+**Date** : 2026-07-10 (initialement pisté 2026-05-10 pour les seules Instructions Claude.ai — étendu 2026-07-10 aux CLAUDE.md projet)
+**Description** : les documents qui configurent les outils LLM au 
+démarrage d'une session (Instructions du projet Claude.ai lues par 
+Claude.ai, CLAUDE.md du projet lu par Claude Code) sont généralement 
+rédigés au moment de la création du projet, puis laissés en l'état. 
+Une première prise de conscience du 2026-05-10 pistait ce gap pour 
+les Instructions Claude.ai suite à la session de bascule 
+vibe-coding-governed → press-knowledge-extractor. Deux observations 
+complémentaires du 2026-07-10 étendent ce gap.
+
+Premièrement, le même principe s'applique aux CLAUDE.md des projets. 
+Le projet llm-lab a fonctionné plusieurs semaines sans CLAUDE.md 
+local du tout — malgré l'existence des CLAUDE.global.md et 
+CLAUDE.projects.md, Claude Code n'avait aucune règle spécifique au 
+projet, aucun contexte technique stable (VRAM, empreintes modèles, 
+séquence de démarrage Ollama). Résultat : à chaque session, 
+re-diagnostic partiel des mêmes faits, re-découverte des mêmes 
+gotchas. Prise de conscience déclenchée par François pendant la 
+session de rédaction du CLAUDE.md llm-lab initial.
+
+Deuxièmement, ce ne sont pas seulement les Instructions qui doivent 
+être enrichies au fur et à mesure — c'est aussi le CLAUDE.md du 
+projet. Les deux documents sont symétriques (contexte pour l'outil 
+au démarrage) mais destinés à deux outils différents (Claude.ai et 
+Claude Code). Toute observation acquise en session qui a une valeur 
+"au démarrage de la prochaine session" doit potentiellement enrichir 
+l'un des deux, voire les deux.
+
+Le pattern global émergent : les documents de contexte outil sont 
+des artefacts qui évoluent au fil des sessions, pas des fichiers 
+figés à l'ouverture du projet.
+
+**Action** : dans la V7.5, ajouter une sous-section explicite dans 
+la section 5 (Configurer le projet Claude.ai) — ou nouvelle section 
+5 bis — qui cadre l'enrichissement continu des documents de contexte 
+outil. Quatre éléments à couvrir :
+1. La règle : toute observation acquise en session qui a valeur 
+"au démarrage de la prochaine session" doit être proposée à l'humain 
+pour enrichissement des Instructions Claude.ai et/ou du CLAUDE.md du 
+projet.
+2. La distinction : quelle information va dans les Instructions 
+(destinée à Claude.ai — posture, arbitrage, signaux) vs dans le 
+CLAUDE.md (destinée à Claude Code — règles opérationnelles, 
+contexte technique, structure du projet, séquences de démarrage).
+3. Le rythme : pas à chaque session mais quand un fait devient 
+stable ou qu'un pattern se répète. Ni trop tôt (bruit) ni trop tard 
+(dette de contexte).
+4. Formulation du pattern à trancher en V7.5 : "documents de contexte 
+outil = artefacts vivants" comme principe méthodologique autonome, 
+ou rapprochement concret avec la discipline d'enrichissement 
+d'EXPERIMENTS.md et BACKLOG.md ? Question ouverte, à discuter au 
+démarrage de la session V7.5.
+
+Documenter aussi qu'un projet peut démarrer sans CLAUDE.md local 
+mais qu'il faut le créer dès qu'il y a plus d'un fait stable à 
+transmettre à Claude Code — sans quoi ce dernier redécouvre à 
+chaque session.
+
+**Source** : première prise de conscience session vibe-coding-governed 
+— 2026-05-10 (Instructions Claude.ai seules) ; extension session 
+llm-lab — 2026-07-10 (ajout dimension CLAUDE.md projet, création du 
+CLAUDE.md llm-lab initial)
 **Statut** : ouvert
 
 ### Pattern "saut prématuré vers l'architecture" — signal à reconnaître
@@ -260,8 +308,48 @@ Date : 2026-07-10 12:06
   sur cas YT Extractor
 **Statut** : ouvert
 
-### Fenêtre de contexte annoncée d'un modèle ≠ fenêtre utilisable
-    par machine
+### Répartition Claude.ai / Claude Code sur les phases de diagnostic
+    système en mode lab
+**Projets** : vibe-coding-governed (méthode) + tout projet en mode lab
+**Date** : 2026-07-10
+**Description** : METHODE_SPECS_CO-CONSTRUCTION.md V7.4 cadre la
+  répartition Claude.ai / Claude Code sur les phases classiques d'un
+  projet (co-construction des specs, implémentation, arbitrage de
+  divergence). Elle ne cadre pas la répartition sur les phases de
+  diagnostic système préalables à une expérimentation en mode lab
+  (kill de process, configuration d'environnement, lecture de logs,
+  inspection d'état runtime).
+  Cas déclencheur : session llm-lab 2026-07-10 — cadrage Expé 3
+  (fit RAM Qwen 3 14B sur M5 16 Go, effectivité KV cache Q8_0). Le
+  diagnostic a demandé 15+ commandes terminal en aller-retour avec
+  Claude.ai (identification que le service Ollama tournait via Homebrew,
+  arrêt propre via `brew services stop`, positionnement d'env vars,
+  relance avec redirection de logs, inspection ligne par ligne). Chaque
+  commande transitait par copier-coller vers le terminal puis retour de
+  sortie vers Claude.ai. Perte de temps significative et fragilité
+  (apostrophes françaises dans les commentaires shell provoquant des
+  parse errors répétés).
+  Bilan pratique : le diagnostic terminal pur est mieux confié à
+  Claude Code, qui accède directement au terminal. L'interprétation des
+  résultats (voie A/B/C, décision de poursuivre ou pivoter) reste chez
+  Claude.ai. Cette répartition n'est pas triviale : ce n'est ni
+  "Claude.ai cadre / Claude Code implémente" (répartition production),
+  ni "Claude Code fait tout" (risque de dérive méthodologique).
+**Action** : dans la V7.5, ajouter une section dans l'Annexe D variante
+  lab qui cadre la répartition sur les phases de diagnostic système :
+  1. Diagnostic terminal pur (état système, configuration, logs)
+     → Claude Code
+  2. Interprétation des résultats et arbitrage des voies → Claude.ai
+  3. Documentation des découvertes dans EXPERIMENTS.md → Claude Code
+     sur cadrage Claude.ai
+  Documenter aussi le pattern "Claude.ai produit un plan de diagnostic
+  à faire exécuter par Claude Code" comme forme légitime de délégation
+  en mode lab, distincte de la co-construction classique.
+**Source** : session llm-lab — 2026-07-10 — cadrage Expé 3
+**Statut** : ouvert
+
+### Ressources annoncées d'un composant local ≠ ressources utilisables
+    en pratique
 **Projets** : llm-lab + tout projet utilisant un modèle LLM local
 **Date** : 2026-07-10
 **Description** : la fenêtre native annoncée par un modèle (ex. Qwen 3 8B
@@ -274,6 +362,17 @@ Date : 2026-07-10 12:06
   Ce plafond n'est pas documenté par le provider et ne fait l'objet
   d'aucun warning : le modèle accepte silencieusement n'importe quel
   num_ctx, la limite se manifeste par une dégradation runtime.
+  Corollaire équivalent sur la VRAM machine, observé sur la même
+  session : Mac M5 16 Go annonce 16 Go de mémoire unifiée, mais Ollama
+  expose 11.8 GiB de VRAM disponible pour l'inférence GPU (mesuré via
+  log `inference compute` au démarrage). La réservation macOS pour l'OS,
+  l'affichage et les buffers noyau n'est pas récupérable en fermant des
+  applications (Chrome, Slack, etc.) : elle est structurelle, pas
+  dynamique en fonction de l'occupation applicative. Le budget VRAM
+  utilisable pour l'inférence est donc un plafond dur inférieur à la RAM
+  machine annoncée. Sur cette M5 en Ollama 0.31.1 backend Metal :
+  11.8 GB. À dimensionner comme tel dans tout cadrage de fit modèle +
+  KV cache.
   Corollaire du gap "Défauts silencieux des providers LLM" mais distinct :
   ici la contrainte est hardware, pas paramétrique.
 **Action** : intégrer dans METHODE_SPECS_CO-CONSTRUCTION.md, en corollaire
@@ -282,6 +381,11 @@ Date : 2026-07-10 12:06
   (num_ctx maximal sans dégradation runtime), documentée, et distinguée
   de la fenêtre annoncée par le modèle. La fenêtre annoncée ne suffit
   pas au dimensionnement d'un cas d'usage.
+  Étendre au dimensionnement VRAM : pour toute machine locale, la VRAM
+  allouable à l'inférence doit être mesurée expérimentalement (via log
+  du serveur d'inférence), documentée, et distinguée de la RAM machine
+  annoncée. Fermer des applications utilisateur ne récupère pas cette
+  VRAM.
 **Source** : session llm-lab — 2026-07-10 — analyse post-run Qwen 3 8B
   Q4 sur Mac M5 16 Go
 **Statut** : ouvert
