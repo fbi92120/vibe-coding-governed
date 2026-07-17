@@ -1,6 +1,6 @@
 # BACKLOG — Projects
-Version : 1.2
-Date : 2026-04-18 18:38
+Version : 1.3
+Date : 2026-07-17 12:05
 
 *Dépendances inter-projets et priorisation cross-projets.
 Source de vérité pour l'arbitrage portfolio.*
@@ -71,3 +71,22 @@ changement cassant en V1.1 est faible.
 
 **Alternative** : si V1.1 change le format des fiches, revenir sur
 WL-02/WL-03 après V1.1. Le coût de rework est faible (un module, un test).
+
+---
+
+## YT Extractor — liens de Chapitrage : conversion timestamp à sortir du modèle
+
+Origine : Expé 3 llm-lab (run2, qwen3:14b), 2026-07-15. Le tableau de
+Chapitrage a produit des liens ?t= faux (timestamps dépassant la durée vidéo,
+trois sur quatre en ×10 des bonnes secondes), alors que les ancres en prose du
+même run étaient justes. Diagnostic : incohérence locale de génération sur une
+arithmétique déterministe, pas ignorance de la conversion.
+
+Correctif recommandé : ne pas confier la conversion MM:SS → secondes au modèle.
+Le modèle émet le MM:SS (fiable) ; le paramètre ?t= de l'URL est calculé en
+post-traitement par une fonction déterministe. Supprime le mode de défaillance
+au lieu d'en réduire la fréquence. Un rappel de prompt serait un repli faible
+(pansement probabiliste), pas la solution.
+
+Rejoint le seau des backports YT Extractor déjà identifiés : description injectée
+~6× dans le prompt, nom de modèle (gemini-2.5-flash) qui fuit dans l'en-tête.

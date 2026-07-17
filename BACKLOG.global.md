@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.9
-Date : 2026-07-10 20:42
+Version : 1.10
+Date : 2026-07-17 12:05
 
 ---
 
@@ -306,6 +306,46 @@ CLAUDE.md llm-lab initial)
   toutes explicitement."
 **Source** : session llm-lab — 2026-07-09 — premier bench Qwen 3 8B
   sur cas YT Extractor
+**Statut** : ouvert
+
+### Défauts de transcription des notes techniques
+**Projets** : llm-lab + tout projet documentant des faits techniques dérivés
+  d'observations (logs, sorties de commande, specs de provider)
+**Date** : 2026-07-15
+**Description** : distinct du gap "Défauts silencieux des providers LLM"
+  (qui porte sur le comportement runtime), ce gap porte sur la
+  documentation : un fait technique recopié de mémoire dans une note,
+  un script ou une Instruction peut être faux, et n'est rattrapé qu'en
+  le relisant contre la sortie réelle. Une même session (préparation
+  Expé 3, 2026-07-15) a débusqué trois faits faux câblés ou sur le point
+  de l'être :
+  1. `--cache-ram 0` présenté comme flag d'`ollama serve` — inexistant
+     (c'est un flag de llama-server/llama.cpp). Rattrapé par un doute
+     avant câblage, confirmé en terminal.
+  2. "Llama 3.3 8B" (LLM_LAB_DECISIONS_PREALABLES.md) — ce modèle
+     n'existe pas ; Llama 3.3 démarre à 70B, le 8B réel est Llama 3.1 8B.
+     Rattrapé par web search avant tout pull.
+  3. Ancre de log "KV self size" (CLAUDE.md) — chaîne qui n'apparaît
+     jamais dans les logs d'Ollama 0.31.1 ; la vraie ligne est
+     `llama_kv_cache: size = … K (<type>) … V (<type>)`. A fait avorter
+     les 3 runs de la première tentative sur un faux négatif du garde-fou
+     (timeout en attente d'une ligne fantôme), pas sur un vrai problème.
+  Observation qui affine le gap : sur le cas 3, EXPERIMENTS.md contenait
+  déjà la bonne ligne. Le journal était juste ; c'est la note
+  opérationnelle dérivée (dans le CLAUDE.md) qui était fausse. La dérive
+  naît au moment de recopier un fait du journal vers une note d'action,
+  pas dans le journal lui-même.
+**Action** : intégrer dans METHODE_SPECS_CO-CONSTRUCTION.md un principe
+  complémentaire du gap "Défauts silencieux" : une note technique (chaîne
+  de log, nom de modèle, flag, valeur de config) se relit dans la sortie
+  réelle AVANT d'être câblée dans un script ou une Instruction — jamais
+  recopiée de mémoire. Point de vigilance spécifique : la recopie
+  journal → note d'action est le maillon fragile. Corollaire outillage :
+  un garde-fou qui attend un motif (ligne de log, etc.) doit être testé
+  contre une sortie réelle, sinon il avorte sur le motif faux et non sur
+  la condition qu'il est censé vérifier.
+**Source** : session llm-lab — 2026-07-15 — préparation Expé 3 (voir
+  entrée de cadrage Expé 3 dans EXPERIMENTS.md pour le détail)
 **Statut** : ouvert
 
 ### Répartition Claude.ai / Claude Code sur les phases de diagnostic
