@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.12
-Date : 2026-07-26 23:05
+Version : 1.13
+Date : 2026-07-27 12:19
 
 ---
 
@@ -30,10 +30,14 @@ point d'entrée pour identifier ce qui est bien fait et ce qui reste à faire.
 - **Bien fait (couche 1 — qualité interne, ISO/IEC 25010)** : atteinte sur les 3 projets
   applicatifs — tests 55–59 %, docstrings 89–100 %, typage, config externalisée,
   contrats d'erreur en constitution.
+- **Fait (2026-07-27)** :
+  - wiki-llm : chemin personnel retiré et vault généré purgé de l'historique (`git filter-repo`),
+    dépôt republié public propre (clone frais vérifié).
+  - enex2obsidian : LICENSE MIT ajoutée, `.env` ajouté au `.gitignore`, dépôt créé et publié public.
+  - llm-lab : LICENSE MIT ajoutée, dépôt passé public.
+  - Les 5 dépôts sont désormais publics.
 - **Reste à faire (couches 2 et 3 — distribuabilité et CI/CD)** :
-  - wiki-llm : ajouter un LICENSE ; retirer le chemin personnel de
-    `DIAGNOSTIC_2026-04-11.md` ; trancher le sort du vault généré commité (`wiki/`, `wiki-test/`).
-  - enex2obsidian : ajouter un LICENSE ; ajouter `.env` au `.gitignore`.
+  - LICENSE encore absent sur wiki-llm et vibe-coding-governed.
   - yt-extractor · wiki-llm · enex2obsidian : packaging pip-installable (`pyproject.toml`),
     CI minimale lançant les tests, outillage lint/format/typecheck
     — cf. gap méthode « La méthode cadre la correction, pas l'industrialisation de la livraison ».
