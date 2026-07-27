@@ -16,10 +16,12 @@
   `git log --format='%at' | sort -n | awk 'NR==1{f=$1} END{printf "%d jours\n", ($1-f)/86400}'`
 - **Plus longue interruption entre deux commits** : 60,68 jours
   `git log --format='%at' | sort -n | awk 'NR>1{g=$1-p; if(g>m)m=g} {p=$1} END{printf "%.2f jours\n", m/86400}'`
+> **Note — métriques git.** Valeurs ci-dessus mesurées le 2026-07-26. L'historique a été réécrit le 2026-07-27 (publication, `git filter-repo`), donc l'état git courant diffère : **25 commits, dernier commit 2026-07-27, 11 jours actifs**. Fenêtre d'activité réelle : **2026-04-11 → 2026-07-17**.
+
 - **Nombre de fichiers de code, et lignes de code par langage** : 0 fichier de code.
   Dépôt documentaire : aucun fichier `.py`, `.sh`, `.js`, `.ts`, `.html`, `.css`, `.yml`.
   `find . \( -name '*.py' -o -name '*.sh' -o -name '*.js' -o -name '*.yml' \) -not -path './.git/*' | wc -l`  → 0
-- **Nombre de fichiers markdown de documentation, et lignes totales** : 13 fichiers, 2514 lignes (documentation rédigée ; inclut les `STATS`/`FICHE_PASSATION` produits pour cet exercice).
+- **Nombre de fichiers markdown de documentation, et lignes totales** : 12 fichiers, 2451 lignes (documentation rédigée ; inclut le fichier `STATS` produit pour cet exercice).
   `find . -name '*.md' -not -path './.git/*' | wc -l`
   `find . -name '*.md' -not -path './.git/*' -print0 | xargs -0 cat | wc -l`
   Note inter-dépôts : `METHODE_SPECS_CO-CONSTRUCTION.md` (911 lignes) et `CLAUDE.projects.md` (115 lignes) sont aussi présents en copie dans yt-knowledge-extractor ; dans un total portefeuille, ne les compter qu'une fois (ce dépôt est leur emplacement de référence).
