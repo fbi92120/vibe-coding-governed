@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.10
-Date : 2026-07-17 12:05
+Version : 1.12
+Date : 2026-07-26 23:05
 
 ---
 
@@ -22,7 +22,21 @@ Date : 2026-07-17 12:05
 
 ## Évolutions planifiées
 
-*Aucune pour l'instant.*
+**Référence : `SYNTHESE_PUBLIABILITE_ET_RESERVES.md`** (présent dans ce dépôt, produit le 2026-07-26).
+État des lieux transverse des 5 dépôts : publiabilité (état courant + historique git),
+maturité de livraison en 3 couches, et réserves d'honnêteté. Ce document sert de
+point d'entrée pour identifier ce qui est bien fait et ce qui reste à faire.
+
+- **Bien fait (couche 1 — qualité interne, ISO/IEC 25010)** : atteinte sur les 3 projets
+  applicatifs — tests 55–59 %, docstrings 89–100 %, typage, config externalisée,
+  contrats d'erreur en constitution.
+- **Reste à faire (couches 2 et 3 — distribuabilité et CI/CD)** :
+  - wiki-llm : ajouter un LICENSE ; retirer le chemin personnel de
+    `DIAGNOSTIC_2026-04-11.md` ; trancher le sort du vault généré commité (`wiki/`, `wiki-test/`).
+  - enex2obsidian : ajouter un LICENSE ; ajouter `.env` au `.gitignore`.
+  - yt-extractor · wiki-llm · enex2obsidian : packaging pip-installable (`pyproject.toml`),
+    CI minimale lançant les tests, outillage lint/format/typecheck
+    — cf. gap méthode « La méthode cadre la correction, pas l'industrialisation de la livraison ».
 
 ---
 
@@ -428,6 +442,40 @@ CLAUDE.md llm-lab initial)
   VRAM.
 **Source** : session llm-lab — 2026-07-10 — analyse post-run Qwen 3 8B
   Q4 sur Mac M5 16 Go
+**Statut** : ouvert
+
+### La méthode cadre la correction, pas l'industrialisation de la livraison
+**Projets** : vibe-coding-governed (méthode) + yt-extractor + wiki-llm + enex2obsidian
+**Date** : 2026-07-26 22:52
+**Description** : une analyse transverse des trois projets applicatifs
+  (menée pendant la production des fiches STATS et PASSATION) montre que
+  les trois partagent exactement les mêmes manques de livraison — ce n'est
+  pas un hasard, c'est une limite de la méthode. La méthode couvre bien la
+  couche « correction / conception » : specs figées avant code, constitution,
+  un module par prompt, tests de contrat avant + smoke après, docstrings,
+  configuration externalisée, typage, contrats d'erreur. Résultat mesuré :
+  code au niveau de l'état de l'art sur cet axe (couverture de test 55–59 %,
+  docstrings 89–100 %, architecture modulaire à orchestrateur passif).
+  Mais elle ne dit rien de deux autres couches d'une livraison au sens plein :
+  (2) distribuabilité — packaging pip-installable (`pyproject.toml`),
+  installation/exécution reproductibles par un tiers, LICENSE, versioning
+  déclaré ; (3) tenue de la qualité dans le temps — intégration continue
+  (tests lancés automatiquement), outillage lint/format/typecheck, discipline
+  de commentaires. Constats concrets : aucun des trois n'a de packaging
+  installable (installation par script), aucun n'a de CI, aucun n'a
+  d'outillage qualité automatisé, LICENSE absent sur wiki-llm et enex2obsidian,
+  commentaires inline rares (ratio 0,03–0,07 — l'explication est portée par
+  specs + docstrings, fragile pour une reprise sans les specs).
+**Action** : en V7.5, ajouter un volet « industrialisation minimale de la
+  livraison » qui cadre, en fin de projet applicatif, une checklist courte :
+  packaging installable, fichier de licence, versioning déclaré, une CI
+  minimale lançant les tests, une config d'outillage (lint/format/typecheck),
+  et une règle explicite sur les commentaires (que documenter dans le code
+  vs dans les specs). Distinguer ce volet du mode lab, où il ne s'applique pas.
+  Trancher le niveau d'exigence : obligatoire pour un livrable destiné à
+  publication, optionnel pour un outil personnel.
+**Source** : session vibe-coding-governed — 2026-07-26 — analyse qualité
+  transverse des fiches STATS/PASSATION (yt-extractor, wiki-llm, enex2obsidian)
 **Statut** : ouvert
 
 ---
