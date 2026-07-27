@@ -1,6 +1,6 @@
 # BACKLOG — Global
-Version : 1.13
-Date : 2026-07-27 12:19
+Version : 1.14
+Date : 2026-07-27 12:34
 
 ---
 
@@ -22,25 +22,7 @@ Date : 2026-07-27 12:19
 
 ## Évolutions planifiées
 
-**Référence : `SYNTHESE_PUBLIABILITE_ET_RESERVES.md`** (présent dans ce dépôt, produit le 2026-07-26).
-État des lieux transverse des 5 dépôts : publiabilité (état courant + historique git),
-maturité de livraison en 3 couches, et réserves d'honnêteté. Ce document sert de
-point d'entrée pour identifier ce qui est bien fait et ce qui reste à faire.
-
-- **Bien fait (couche 1 — qualité interne, ISO/IEC 25010)** : atteinte sur les 3 projets
-  applicatifs — tests 55–59 %, docstrings 89–100 %, typage, config externalisée,
-  contrats d'erreur en constitution.
-- **Fait (2026-07-27)** :
-  - wiki-llm : chemin personnel retiré et vault généré purgé de l'historique (`git filter-repo`),
-    dépôt republié public propre (clone frais vérifié).
-  - enex2obsidian : LICENSE MIT ajoutée, `.env` ajouté au `.gitignore`, dépôt créé et publié public.
-  - llm-lab : LICENSE MIT ajoutée, dépôt passé public.
-  - Les 5 dépôts sont désormais publics.
-- **Reste à faire (couches 2 et 3 — distribuabilité et CI/CD)** :
-  - LICENSE encore absent sur wiki-llm et vibe-coding-governed.
-  - yt-extractor · wiki-llm · enex2obsidian : packaging pip-installable (`pyproject.toml`),
-    CI minimale lançant les tests, outillage lint/format/typecheck
-    — cf. gap méthode « La méthode cadre la correction, pas l'industrialisation de la livraison ».
+*Aucune pour l'instant.*
 
 ---
 
@@ -479,7 +461,7 @@ CLAUDE.md llm-lab initial)
   Trancher le niveau d'exigence : obligatoire pour un livrable destiné à
   publication, optionnel pour un outil personnel.
 **Source** : session vibe-coding-governed — 2026-07-26 — analyse qualité
-  transverse des fiches STATS/PASSATION (yt-extractor, wiki-llm, enex2obsidian)
+  transverse des dépôts applicatifs (yt-extractor, wiki-llm, enex2obsidian)
 **Statut** : ouvert
 
 ---
